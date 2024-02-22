@@ -162,7 +162,7 @@ const loadDB = () => {
 
 ## User Stories
 
-- [ ] User can see a web page containing a control panel containing three
+- [x] User can see a web page containing a control panel containing three
       buttons - 'Load DB', 'Query DB', and 'Clear DB'.
 - [ ] User can see a notification panel where status messages will be posted.
 - [ ] User can see a scrollable log panel where execution details describing

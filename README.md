@@ -165,7 +165,7 @@ const loadDB = () => {
 - [x] User can see a web page containing a control panel containing three
       buttons - 'Load DB', 'Query DB', and 'Clear DB'.
 - [x] User can see a notification panel where status messages will be posted.
-- [ ] User can see a scrollable log panel where execution details describing
+- [x] User can see a scrollable log panel where execution details describing
       the apps operation and interface with the Customer instance will be posted.
 - [ ] User can see a running history of notification panel messages in the log
       panel.

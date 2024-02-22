@@ -1,6 +1,8 @@
+import React from "react";
 import { ThemeProvider } from "@emotion/react";
 import { Box, CssBaseline, createTheme } from "@mui/material";
-import React from "react";
+import PageHeader from "./components/PageHeader";
+import PageContent from "./components/PageContent";
 
 const theme = createTheme({
   primary: {
@@ -16,8 +18,8 @@ const App = () => {
     <Box>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        {/* Page Header */}
-        {/* Page Content */}
+        <PageHeader />
+        <PageContent />
       </ThemeProvider>
     </Box>
   );

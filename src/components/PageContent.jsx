@@ -1,6 +1,6 @@
 import React from "react";
 import { clearDB, loadDB } from "../customer";
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Paper, Typography } from "@mui/material";
 
 const PageContent = () => {
   return (
@@ -20,6 +20,15 @@ const PageContent = () => {
         <Button>Query DB</Button>
         <Button>Clear DB</Button>
       </ButtonGroup>
+      <Paper
+        elevation={5}
+        sx={{
+          p: 3,
+          mt: 4,
+        }}
+      >
+        <Typography variant="h5">Notifications</Typography>
+      </Paper>
     </Box>
   );
 };

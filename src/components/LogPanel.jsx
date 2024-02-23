@@ -9,25 +9,30 @@ import {
   Box,
 } from "@mui/material";
 
-const LogPanel = ({ logEntries }) => {
+const Panel = ({
+  panelTitle,
+  entries = [],
+  style = {
+    p: 3,
+    mb: 4,
+    elevation: 5,
+  },
+  square = false,
+}) => {
   return (
     <Box>
       <Typography variant="h5" mb={1}>
-        Logs
+        {panelTitle}
       </Typography>
       <Paper
-        sx={{
-          maxHeight: 300,
-          overflow: "auto",
-          bgcolor: "black",
-          color: "white",
-        }}
-        square
+        sx={{ ...style, overflow: "auto" }}
+        square={square}
+        elevation={style.elevation}
       >
         <List>
-          {logEntries.map((logEntry, index) => (
+          {entries.map((entry, index) => (
             <ListItem key={index}>
-              <ListItemText primary={logEntry} />
+              <ListItemText primary={entry} />
             </ListItem>
           ))}
         </List>
@@ -36,8 +41,11 @@ const LogPanel = ({ logEntries }) => {
   );
 };
 
-LogPanel.propTypes = {
-  logEntries: PropTypes.array.isRequired,
+Panel.propTypes = {
+  panelTitle: PropTypes.string.isRequired,
+  entries: PropTypes.array,
+  style: PropTypes.object,
+  square: PropTypes.bool,
 };
 
-export default LogPanel;
+export default Panel;

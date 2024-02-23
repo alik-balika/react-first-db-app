@@ -1,7 +1,7 @@
 import React from "react";
 import { clearDB, loadDB } from "../customer";
 import { Box, Button, ButtonGroup, Paper, Typography } from "@mui/material";
-import LogPanel from "./LogPanel";
+import Panel from "./LogPanel";
 
 // temporary to display logPanel
 const logEntries = [
@@ -37,17 +37,20 @@ const PageContent = () => {
         <Button>Query DB</Button>
         <Button>Clear DB</Button>
       </ButtonGroup>
-      {/* Potentially extract notifications to its own notification panel component */}
-      <Paper
-        elevation={5}
-        sx={{
-          p: 3,
-          my: 4,
-        }}
-      >
-        <Typography variant="h5">Notifications</Typography>
-      </Paper>
-      <LogPanel logEntries={logEntries} />
+      <Box mt={2}>
+        <Panel panelTitle="Notifications" />
+        <Panel panelTitle="Results" />
+        <Panel
+          panelTitle="Logs"
+          entries={logEntries}
+          style={{
+            maxHeight: 300,
+            bgcolor: "black",
+            color: "white",
+          }}
+          square={true}
+        />
+      </Box>
     </Box>
   );
 };

@@ -169,7 +169,7 @@ const loadDB = () => {
       the apps operation and interface with the Customer instance will be posted.
 - [ ] User can see a running history of notification panel messages in the log
       panel.
-- [ ] User can see a scrollable query results area where retrieved customer
+- [x] User can see a scrollable query results area where retrieved customer
       data will be displayed.
 - [ ] User can click the 'Load DB' button to populate the database with data.
       The 'Load DB' button in your UI should be hooked to the `loadDB` event handler

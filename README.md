@@ -171,7 +171,7 @@ const loadDB = () => {
       panel.
 - [x] User can see a scrollable query results area where retrieved customer
       data will be displayed.
-- [ ] User can click the 'Load DB' button to populate the database with data.
+- [x] User can click the 'Load DB' button to populate the database with data.
       The 'Load DB' button in your UI should be hooked to the `loadDB` event handler
       that's provided.
 - [ ] User can see a message displayed in the notification panel when the

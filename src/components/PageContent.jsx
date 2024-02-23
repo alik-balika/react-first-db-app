@@ -33,7 +33,7 @@ const PageContent = () => {
         Control Panel
       </Typography>
       <ButtonGroup variant="contained">
-        <Button>Load DB</Button>
+        <Button onClick={loadDB}>Load DB</Button>
         <Button>Query DB</Button>
         <Button>Clear DB</Button>
       </ButtonGroup>

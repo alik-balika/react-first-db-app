@@ -1,7 +1,7 @@
 import React from "react";
 import { clearDB, loadDB } from "../customer";
-import { Box, Button, ButtonGroup, Paper, Typography } from "@mui/material";
-import Panel from "./LogPanel";
+import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import Panel from "./Panel";
 
 // temporary to display logPanel
 const logEntries = [

@@ -35,7 +35,7 @@ const Panel = ({
               <ListItemText
                 primary={entry.message}
                 secondary={entry.time}
-                secondaryTypographyProps={{ sx: { color: "red" } }}
+                secondaryTypographyProps={{ sx: { color: "green" } }}
               />
             </ListItem>
           ))}

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { clearDB, loadDB } from "../customer";
+import { clearDB, loadDB, queryDB } from "../customer";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import Panel from "./Panel";
 
 const PageContent = () => {
   const [notifications, setNotifications] = useState([]);
   const [logEntries, setLogEntries] = useState([]);
+  const [results, setResults] = useState([]);
 
   const addNotification = (notification) => {
     setNotifications((prevNotifications) => [
@@ -32,12 +33,12 @@ const PageContent = () => {
       </Typography>
       <ButtonGroup variant="contained">
         <Button onClick={() => loadDB(addNotification, addLog)}>Load DB</Button>
-        <Button>Query DB</Button>
+        <Button onClick={() => queryDB(addLog, setResults)}>Query DB</Button>
         <Button>Clear DB</Button>
       </ButtonGroup>
       <Box mt={2}>
         <Panel panelTitle="Notifications" entries={notifications} />
-        <Panel panelTitle="Results" />
+        <Panel panelTitle="Results" entries={results} />
         <Panel
           panelTitle="Logs"
           entries={logEntries}

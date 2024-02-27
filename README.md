@@ -176,7 +176,7 @@ const loadDB = () => {
       that's provided.
 - [x] User can see a message displayed in the notification panel when the
       data load operation starts and ends.
-- [ ] User can click the 'Query DB' button to list all customers in the query
+- [x] User can click the 'Query DB' button to list all customers in the query
       results area. The 'Query DB' button in your UI should be hooked to a `queryDB`
       event handler you will add to the program.
 - [ ] User can see a message in the notification panel when the query starts

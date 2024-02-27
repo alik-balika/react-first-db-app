@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 const NOTIFICATION_TYPE = "notification";
 const LOG_TYPE = "log";
+const DB_NAME = "customer_db";
 
 class Customer {
   constructor(dbName) {
@@ -40,13 +42,11 @@ class Customer {
           event.target.error.message
         );
       };
-      // eslint-disable-next-line no-unused-vars
       txn.oncomplete = (event) => {
         console.log("All rows removed!");
       };
       const objectStore = txn.objectStore("customers");
       const getAllKeysRequest = objectStore.getAllKeys();
-      // eslint-disable-next-line no-unused-vars
       getAllKeysRequest.onsuccess = (event) => {
         getAllKeysRequest.result.forEach((key) => {
           objectStore.delete(key);
@@ -98,9 +98,54 @@ class Customer {
 
     addMessageTo(NOTIFICATION_TYPE, "Loading the database...");
   };
-}
 
-const DB_NAME = "customer_db";
+  /**
+   * Queries all rows from the database
+   * @memberof Customer
+   */
+  queryAllRows = (addLog, setResults) => {
+    const request = indexedDB.open(this.dbName, 1);
+
+    request.onerror = (event) => {
+      addLog(
+        `queryAllRows - Database error: ${event.target.error.code} - ${event.target.error.message}`
+      );
+    };
+
+    request.onsuccess = (event) => {
+      addLog("Retrieving all customers...");
+      const db = event.target.result;
+      const txn = db.transaction("customers", "readonly");
+
+      txn.onerror = (event) => {
+        addLog(
+          `queryAllRows - Txn error: ${event.target.error.code} - ${event.target.error.message}`
+        );
+      };
+
+      txn.oncomplete = (event) => {
+        addLog("All rows retrieved!");
+      };
+
+      const objectStore = txn.objectStore("customers");
+      const getAllResultsRequest = objectStore.getAll();
+
+      getAllResultsRequest.onsuccess = (event) => {
+        const results = [];
+        getAllResultsRequest.result.forEach((row) => {
+          results.push({ message: JSON.stringify(row) });
+        });
+        setResults(results);
+      };
+
+      getAllResultsRequest.onerror = (event) => {
+        addLog(
+          `getAllKeysRequest - Database error: ${event.target.error.code} - ${event.target.error.message}`
+        );
+      };
+    };
+  };
+}
 
 /**
  * Clear all customer data from the database
@@ -145,4 +190,14 @@ export const loadDB = (addNotification, addLog) => {
       addLog({ message, time: currentDateAndTime() });
     }
   });
+};
+
+/**
+ * Query customer data from the database
+ */
+export const queryDB = (addLog, setResults) => {
+  let customer = new Customer(DB_NAME);
+  customer.queryAllRows((message) => {
+    addLog({ message, time: currentDateAndTime() });
+  }, setResults);
 };

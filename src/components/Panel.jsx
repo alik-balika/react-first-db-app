@@ -30,15 +30,21 @@ const Panel = ({
         elevation={style.elevation}
       >
         <List>
-          {entries.map((entry, index) => (
-            <ListItem key={index}>
-              <ListItemText
-                primary={entry.message}
-                secondary={entry.time}
-                secondaryTypographyProps={{ sx: { color: "green" } }}
-              />
+          {entries.length ? (
+            entries.map((entry, index) => (
+              <ListItem key={index}>
+                <ListItemText
+                  primary={entry.message}
+                  secondary={entry.time}
+                  secondaryTypographyProps={{ sx: { color: "green" } }}
+                />
+              </ListItem>
+            ))
+          ) : (
+            <ListItem>
+              <ListItemText primary="No entries found."></ListItemText>
             </ListItem>
-          ))}
+          )}
         </List>
       </Paper>
     </Box>

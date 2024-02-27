@@ -25,7 +25,7 @@ const Panel = ({
         {panelTitle}
       </Typography>
       <Paper
-        sx={{ ...style, overflow: "auto", minHeight: "5rem" }}
+        sx={{ ...style, overflow: "auto", maxHeight: 300 }}
         square={square}
         elevation={style.elevation}
       >

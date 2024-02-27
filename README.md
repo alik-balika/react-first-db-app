@@ -186,7 +186,7 @@ const loadDB = () => {
 - [x] User can click on the 'Clear DB' button to remove all rows from the
       database. The 'Clear DB' button in your UI should be hooked to the `clearDB`
       event handler that's provided.
-- [ ] User can see a message in the notification panel when the clear
+- [x] User can see a message in the notification panel when the clear
       operation starts and ends.
 
 ## Bonus features

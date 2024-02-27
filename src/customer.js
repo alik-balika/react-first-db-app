@@ -18,15 +18,13 @@ class Customer {
    * Remove all rows from the database
    * @memberof Customer
    */
-  removeAllRows = () => {
+  removeAllRows = (addMessageTo) => {
     const request = indexedDB.open(this.dbName, 1);
 
     request.onerror = (event) => {
-      console.log(
-        "removeAllRows - Database error: ",
-        event.target.error.code,
-        " - ",
-        event.target.error.message
+      addMessageTo(
+        LOG_TYPE,
+        `initialLoad - Database error: ${event.target.error.code} - ${event.target.error.message}`
       );
     };
 
@@ -35,15 +33,13 @@ class Customer {
       const db = event.target.result;
       const txn = db.transaction("customers", "readwrite");
       txn.onerror = (event) => {
-        console.log(
-          "removeAllRows - Txn error: ",
-          event.target.error.code,
-          " - ",
-          event.target.error.message
+        addMessageTo(
+          LOG_TYPE,
+          `initialLoad - Txn error: ${event.target.error.code} - ${event.target.error.message}`
         );
       };
       txn.oncomplete = (event) => {
-        console.log("All rows removed!");
+        addMessageTo(NOTIFICATION_TYPE, "Remove operation complete.");
       };
       const objectStore = txn.objectStore("customers");
       const getAllKeysRequest = objectStore.getAllKeys();
@@ -53,6 +49,8 @@ class Customer {
         });
       };
     };
+
+    addMessageTo(NOTIFICATION_TYPE, "Removing all rows...");
   };
 
   /**
@@ -77,11 +75,9 @@ class Customer {
       const transaction = db.transaction(["customers"], "readwrite");
       const objectStore = transaction.objectStore("customers");
       customerData.forEach((customer) => {
-        const request = objectStore.add(customer);
-        request.onsuccess = (event) => {
-          // event.target.result === customer.ssn;
-        };
+        objectStore.add(customer);
       });
+      addMessageTo(NOTIFICATION_TYPE, "DB load is finished.");
     };
 
     request.onupgradeneeded = (event) => {
@@ -166,10 +162,16 @@ class Customer {
 /**
  * Clear all customer data from the database
  */
-export const clearDB = () => {
+export const clearDB = (addNotification, addLog) => {
   console.log("Delete all rows from the Customers database");
   let customer = new Customer(DB_NAME);
-  customer.removeAllRows();
+  customer.removeAllRows((type, message) => {
+    if (type === "notification") {
+      addNotification({ message, time: currentDateAndTime() });
+    } else if (type === "log") {
+      addLog({ message, time: currentDateAndTime() });
+    }
+  });
 };
 
 const currentDateAndTime = () => {

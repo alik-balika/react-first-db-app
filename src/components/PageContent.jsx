@@ -36,7 +36,9 @@ const PageContent = () => {
         <Button onClick={() => queryDB(addNotification, addLog, setResults)}>
           Query DB
         </Button>
-        <Button onClick={clearDB}>Clear DB</Button>
+        <Button onClick={() => clearDB(addNotification, addLog)}>
+          Clear DB
+        </Button>
       </ButtonGroup>
       <Box mt={2}>
         <Panel panelTitle="Notifications" entries={notifications} />
@@ -45,7 +47,6 @@ const PageContent = () => {
           panelTitle="Logs"
           entries={logEntries}
           style={{
-            maxHeight: 300,
             bgcolor: "black",
             color: "white",
           }}

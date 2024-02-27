@@ -13,7 +13,7 @@ const Panel = ({
   panelTitle,
   entries = [],
   style = {
-    p: 3,
+    p: 1,
     mb: 4,
     elevation: 5,
   },
@@ -25,14 +25,14 @@ const Panel = ({
         {panelTitle}
       </Typography>
       <Paper
-        sx={{ ...style, overflow: "auto" }}
+        sx={{ ...style, overflow: "auto", minHeight: "5rem" }}
         square={square}
         elevation={style.elevation}
       >
         <List>
           {entries.map((entry, index) => (
             <ListItem key={index}>
-              <ListItemText primary={entry} />
+              <ListItemText primary={entry.message} secondary={entry.time} />
             </ListItem>
           ))}
         </List>

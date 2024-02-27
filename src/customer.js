@@ -57,7 +57,7 @@ class Customer {
    * @param {[object]} customerData Data to add
    * @memberof Customer
    */
-  initialLoad = (customerData) => {
+  initialLoad = (customerData, onDBStatusChange) => {
     const request = indexedDB.open(this.dbName, 1);
 
     request.onerror = (event) => {
@@ -93,7 +93,10 @@ class Customer {
         objectStore.put(customer);
       });
       db.close();
+      onDBStatusChange("DB load is finished.");
     };
+
+    onDBStatusChange("Loading the database...");
   };
 }
 
@@ -108,10 +111,27 @@ export const clearDB = () => {
   customer.removeAllRows();
 };
 
+const currentDateAndTime = () => {
+  let currentdate = new Date();
+  return (
+    currentdate.getDate() +
+    "/" +
+    (currentdate.getMonth() + 1) +
+    "/" +
+    currentdate.getFullYear() +
+    " " +
+    currentdate.getHours() +
+    ":" +
+    currentdate.getMinutes() +
+    ":" +
+    currentdate.getSeconds()
+  );
+};
+
 /**
  * Add customer data to the database
  */
-export const loadDB = () => {
+export const loadDB = (addNotification) => {
   console.log("Load the Customers database");
 
   // Customers to add to initially populate the database with
@@ -120,5 +140,7 @@ export const loadDB = () => {
     { userid: "555", name: "Donna", email: "donna@home.org" },
   ];
   let customer = new Customer(DB_NAME);
-  customer.initialLoad(customerData);
+  customer.initialLoad(customerData, (message) => {
+    addNotification({ message, time: currentDateAndTime() });
+  });
 };

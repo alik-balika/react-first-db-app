@@ -174,7 +174,7 @@ const loadDB = () => {
 - [x] User can click the 'Load DB' button to populate the database with data.
       The 'Load DB' button in your UI should be hooked to the `loadDB` event handler
       that's provided.
-- [ ] User can see a message displayed in the notification panel when the
+- [x] User can see a message displayed in the notification panel when the
       data load operation starts and ends.
 - [ ] User can click the 'Query DB' button to list all customers in the query
       results area. The 'Query DB' button in your UI should be hooked to a `queryDB`

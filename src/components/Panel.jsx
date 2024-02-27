@@ -7,6 +7,7 @@ import {
   ListItemText,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
 
 const Panel = ({
@@ -18,12 +19,16 @@ const Panel = ({
     elevation: 5,
   },
   square = false,
+  clear,
 }) => {
   return (
     <Box>
-      <Typography variant="h5" mb={1}>
-        {panelTitle}
-      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h5" mb={1}>
+          {panelTitle}
+        </Typography>
+        <Button onClick={clear}>Clear</Button>
+      </Box>
       <Paper
         sx={{ ...style, overflow: "auto", maxHeight: 300 }}
         square={square}
@@ -56,6 +61,7 @@ Panel.propTypes = {
   entries: PropTypes.array,
   style: PropTypes.object,
   square: PropTypes.bool,
+  clear: PropTypes.func.isRequired,
 };
 
 export default Panel;

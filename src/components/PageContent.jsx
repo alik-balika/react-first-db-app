@@ -60,8 +60,16 @@ const PageContent = () => {
         </Button>
       </ButtonGroup>
       <Box mt={2}>
-        <Panel panelTitle="Notifications" entries={notifications} />
-        <Panel panelTitle="Results" entries={results} />
+        <Panel
+          panelTitle="Notifications"
+          entries={notifications}
+          clear={() => setNotifications([])}
+        />
+        <Panel
+          panelTitle="Results"
+          entries={results}
+          clear={() => setResults([])}
+        />
         <Panel
           panelTitle="Logs"
           entries={logEntries}
@@ -70,6 +78,7 @@ const PageContent = () => {
             color: "white",
           }}
           square={true}
+          clear={() => setLogEntries([])}
         />
       </Box>
     </Box>

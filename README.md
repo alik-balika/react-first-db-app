@@ -191,7 +191,7 @@ const loadDB = () => {
 
 ## Bonus features
 
-- [ ] User can see buttons enabled and disabled according to the following
+- [x] User can see buttons enabled and disabled according to the following
       table.
 
       | State               | Load DB  | Query DB | Clear DB |
@@ -201,7 +201,7 @@ const loadDB = () => {
       | Query DB clicked    | disabled | enabled  | enabled  |
       | Clear DB clicked    | enabled  | enabled  | disabled |
 
-- [ ] User can see additional Customer data fields added to those included
+- [x] User can see additional Customer data fields added to those included
       in the code provided. Developer should add date of last order and total sales
       for the year.
 - [ ] Developer should conduct a retrospection on this project:

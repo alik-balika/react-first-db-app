@@ -197,9 +197,78 @@ const currentDateAndTime = () => {
 export const loadDB = (addNotification, addLog) => {
   // Customers to add to initially populate the database with
   const customerData = [
-    { userid: "444", name: "Bill", email: "bill@company.com" },
-    { userid: "555", name: "Donna", email: "donna@home.org" },
+    {
+      userid: "444",
+      name: "Bill",
+      email: "bill@company.com",
+      lastOrderDate: "2023-12-15",
+      totalSalesYear: 5000,
+    },
+    {
+      userid: "555",
+      name: "Donna",
+      email: "donna@home.org",
+      lastOrderDate: "2023-11-20",
+      totalSalesYear: 7000,
+    },
+    {
+      userid: "666",
+      name: "John",
+      email: "john@example.com",
+      lastOrderDate: "2023-12-31",
+      totalSalesYear: 10000,
+    },
+    {
+      userid: "777",
+      name: "Alice",
+      email: "alice@example.com",
+      lastOrderDate: "2023-12-25",
+      totalSalesYear: 8000,
+    },
+    {
+      userid: "888",
+      name: "Bob",
+      email: "bob@example.com",
+      lastOrderDate: "2023-10-10",
+      totalSalesYear: 6000,
+    },
+    {
+      userid: "999",
+      name: "Emily",
+      email: "emily@example.com",
+      lastOrderDate: "2023-09-15",
+      totalSalesYear: 9000,
+    },
+    {
+      userid: "1010",
+      name: "Michael",
+      email: "michael@example.com",
+      lastOrderDate: "2023-11-05",
+      totalSalesYear: 12000,
+    },
+    {
+      userid: "1111",
+      name: "Jessica",
+      email: "jessica@example.com",
+      lastOrderDate: "2023-08-20",
+      totalSalesYear: 11000,
+    },
+    {
+      userid: "1212",
+      name: "David",
+      email: "david@example.com",
+      lastOrderDate: "2023-07-30",
+      totalSalesYear: 15000,
+    },
+    {
+      userid: "1313",
+      name: "Sarah",
+      email: "sarah@example.com",
+      lastOrderDate: "2023-12-10",
+      totalSalesYear: 20000,
+    },
   ];
+
   let customer = new Customer(DB_NAME);
   customer.initialLoad(customerData, (type, message) => {
     if (type === "notification") {

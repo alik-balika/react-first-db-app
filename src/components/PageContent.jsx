@@ -7,6 +7,7 @@ const PageContent = () => {
   const [notifications, setNotifications] = useState([]);
   const [logEntries, setLogEntries] = useState([]);
   const [results, setResults] = useState([]);
+  const [currentButtonPressed, setCurrentButtonPressed] = useState("");
 
   const addNotification = (notification) => {
     setNotifications((prevNotifications) => [
@@ -17,6 +18,16 @@ const PageContent = () => {
 
   const addLog = (logEntry) => {
     setLogEntries((prevLogEntries) => [...prevLogEntries, logEntry]);
+  };
+
+  const handleLoadDB = () => {
+    loadDB(addNotification, addLog);
+    setCurrentButtonPressed("loadDB");
+  };
+
+  const handleClearDB = () => {
+    clearDB(addNotification, addLog);
+    setCurrentButtonPressed("clearDB");
   };
 
   return (
@@ -32,11 +43,19 @@ const PageContent = () => {
         Control Panel
       </Typography>
       <ButtonGroup variant="contained">
-        <Button onClick={() => loadDB(addNotification, addLog)}>Load DB</Button>
+        <Button
+          onClick={handleLoadDB}
+          disabled={currentButtonPressed === "loadDB"}
+        >
+          Load DB
+        </Button>
         <Button onClick={() => queryDB(addNotification, addLog, setResults)}>
           Query DB
         </Button>
-        <Button onClick={() => clearDB(addNotification, addLog)}>
+        <Button
+          onClick={handleClearDB}
+          disabled={currentButtonPressed === "clearDB"}
+        >
           Clear DB
         </Button>
       </ButtonGroup>

@@ -103,28 +103,30 @@ class Customer {
    * Queries all rows from the database
    * @memberof Customer
    */
-  queryAllRows = (addLog, setResults) => {
+  queryAllRows = (addMessageTo, setResults) => {
     const request = indexedDB.open(this.dbName, 1);
 
     request.onerror = (event) => {
-      addLog(
+      addMessageTo(
+        LOG_TYPE,
         `queryAllRows - Database error: ${event.target.error.code} - ${event.target.error.message}`
       );
     };
 
     request.onsuccess = (event) => {
-      addLog("Retrieving all customers...");
+      addMessageTo(NOTIFICATION_TYPE, "Retrieving all customers...");
       const db = event.target.result;
       const txn = db.transaction("customers", "readonly");
 
       txn.onerror = (event) => {
-        addLog(
+        addMessageTo(
+          LOG_TYPE,
           `queryAllRows - Txn error: ${event.target.error.code} - ${event.target.error.message}`
         );
       };
 
       txn.oncomplete = (event) => {
-        addLog("All rows retrieved!");
+        addMessageTo(NOTIFICATION_TYPE, "All rows retrieved!");
       };
 
       const objectStore = txn.objectStore("customers");
@@ -139,7 +141,8 @@ class Customer {
       };
 
       getAllResultsRequest.onerror = (event) => {
-        addLog(
+        addMessageTo(
+          LOG_TYPE,
           `getAllKeysRequest - Database error: ${event.target.error.code} - ${event.target.error.message}`
         );
       };
@@ -195,9 +198,13 @@ export const loadDB = (addNotification, addLog) => {
 /**
  * Query customer data from the database
  */
-export const queryDB = (addLog, setResults) => {
+export const queryDB = (addNotification, addLog, setResults) => {
   let customer = new Customer(DB_NAME);
-  customer.queryAllRows((message) => {
-    addLog({ message, time: currentDateAndTime() });
+  customer.queryAllRows((type, message) => {
+    if (type === "notification") {
+      addNotification({ message, time: currentDateAndTime() });
+    } else if (type === "log") {
+      addLog({ message, time: currentDateAndTime() });
+    }
   }, setResults);
 };

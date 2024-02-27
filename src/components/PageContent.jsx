@@ -33,7 +33,9 @@ const PageContent = () => {
       </Typography>
       <ButtonGroup variant="contained">
         <Button onClick={() => loadDB(addNotification, addLog)}>Load DB</Button>
-        <Button onClick={() => queryDB(addLog, setResults)}>Query DB</Button>
+        <Button onClick={() => queryDB(addNotification, addLog, setResults)}>
+          Query DB
+        </Button>
         <Button>Clear DB</Button>
       </ButtonGroup>
       <Box mt={2}>

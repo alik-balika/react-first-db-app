@@ -179,7 +179,7 @@ const loadDB = () => {
 - [x] User can click the 'Query DB' button to list all customers in the query
       results area. The 'Query DB' button in your UI should be hooked to a `queryDB`
       event handler you will add to the program.
-- [ ] User can see a message in the notification panel when the query starts
+- [x] User can see a message in the notification panel when the query starts
       and ends.
 - [ ] User can see a message in the query results area if there are no rows
       to display.

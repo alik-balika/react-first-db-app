@@ -71,6 +71,19 @@ class Customer {
       );
     };
 
+    request.onsuccess = (event) => {
+      addMessageTo(LOG_TYPE, "Populating customers...");
+      const db = event.target.result;
+      const transaction = db.transaction(["customers"], "readwrite");
+      const objectStore = transaction.objectStore("customers");
+      customerData.forEach((customer) => {
+        const request = objectStore.add(customer);
+        request.onsuccess = (event) => {
+          // event.target.result === customer.ssn;
+        };
+      });
+    };
+
     request.onupgradeneeded = (event) => {
       addMessageTo(LOG_TYPE, "Populating customers...");
       const db = event.target.result;

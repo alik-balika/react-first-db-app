@@ -36,7 +36,7 @@ const PageContent = () => {
         <Button onClick={() => queryDB(addNotification, addLog, setResults)}>
           Query DB
         </Button>
-        <Button>Clear DB</Button>
+        <Button onClick={clearDB}>Clear DB</Button>
       </ButtonGroup>
       <Box mt={2}>
         <Panel panelTitle="Notifications" entries={notifications} />

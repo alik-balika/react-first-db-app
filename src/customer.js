@@ -1,3 +1,6 @@
+const NOTIFICATION_TYPE = "notification";
+const LOG_TYPE = "log";
+
 class Customer {
   constructor(dbName) {
     this.dbName = dbName;
@@ -57,30 +60,27 @@ class Customer {
    * @param {[object]} customerData Data to add
    * @memberof Customer
    */
-  initialLoad = (customerData, onDBStatusChange) => {
+  initialLoad = (customerData, addMessageTo) => {
+    addMessageTo(LOG_TYPE, "Load the Customers database");
     const request = indexedDB.open(this.dbName, 1);
 
     request.onerror = (event) => {
-      console.log(
-        "initialLoad - Database error: ",
-        event.target.error.code,
-        " - ",
-        event.target.error.message
+      addMessageTo(
+        LOG_TYPE,
+        `initialLoad - Database error: ${event.target.error.code} - ${event.target.error.message}`
       );
     };
 
     request.onupgradeneeded = (event) => {
-      console.log("Populating customers...");
+      addMessageTo(LOG_TYPE, "Populating customers...");
       const db = event.target.result;
       const objectStore = db.createObjectStore("customers", {
         keyPath: "userid",
       });
       objectStore.onerror = (event) => {
-        console.log(
-          "initialLoad - objectStore error: ",
-          event.target.error.code,
-          " - ",
-          event.target.error.message
+        addMessageTo(
+          LOG_TYPE,
+          `initialLoad - objectStore error: ${event.target.error.code} - ${event.target.error.message}`
         );
       };
 
@@ -93,10 +93,10 @@ class Customer {
         objectStore.put(customer);
       });
       db.close();
-      onDBStatusChange("DB load is finished.");
+      addMessageTo(NOTIFICATION_TYPE, "DB load is finished.");
     };
 
-    onDBStatusChange("Loading the database...");
+    addMessageTo(NOTIFICATION_TYPE, "Loading the database...");
   };
 }
 
@@ -131,16 +131,18 @@ const currentDateAndTime = () => {
 /**
  * Add customer data to the database
  */
-export const loadDB = (addNotification) => {
-  console.log("Load the Customers database");
-
+export const loadDB = (addNotification, addLog) => {
   // Customers to add to initially populate the database with
   const customerData = [
     { userid: "444", name: "Bill", email: "bill@company.com" },
     { userid: "555", name: "Donna", email: "donna@home.org" },
   ];
   let customer = new Customer(DB_NAME);
-  customer.initialLoad(customerData, (message) => {
-    addNotification({ message, time: currentDateAndTime() });
+  customer.initialLoad(customerData, (type, message) => {
+    if (type === "notification") {
+      addNotification({ message, time: currentDateAndTime() });
+    } else if (type === "log") {
+      addLog({ message, time: currentDateAndTime() });
+    }
   });
 };

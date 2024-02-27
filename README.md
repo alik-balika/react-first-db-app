@@ -167,7 +167,7 @@ const loadDB = () => {
 - [x] User can see a notification panel where status messages will be posted.
 - [x] User can see a scrollable log panel where execution details describing
       the apps operation and interface with the Customer instance will be posted.
-- [ ] User can see a running history of notification panel messages in the log
+- [x] User can see a running history of notification panel messages in the log
       panel.
 - [x] User can see a scrollable query results area where retrieved customer
       data will be displayed.

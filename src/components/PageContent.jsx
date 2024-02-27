@@ -3,27 +3,19 @@ import { clearDB, loadDB } from "../customer";
 import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import Panel from "./Panel";
 
-// temporary to display logPanel
-const logEntries = [
-  { message: "Log entry 1" },
-  { message: "Log entry 2" },
-  { message: "Log entry 3" },
-  { message: "Log entry 4" },
-  { message: "Log entry 5" },
-  { message: "Log entry 6" },
-  { message: "Log entry 7" },
-  { message: "Log entry 8" },
-  { message: "Log entry 9" },
-];
-
 const PageContent = () => {
   const [notifications, setNotifications] = useState([]);
+  const [logEntries, setLogEntries] = useState([]);
 
   const addNotification = (notification) => {
     setNotifications((prevNotifications) => [
       ...prevNotifications,
       notification,
     ]);
+  };
+
+  const addLog = (logEntry) => {
+    setLogEntries((prevLogEntries) => [...prevLogEntries, logEntry]);
   };
 
   return (
@@ -39,7 +31,7 @@ const PageContent = () => {
         Control Panel
       </Typography>
       <ButtonGroup variant="contained">
-        <Button onClick={() => loadDB(addNotification)}>Load DB</Button>
+        <Button onClick={() => loadDB(addNotification, addLog)}>Load DB</Button>
         <Button>Query DB</Button>
         <Button>Clear DB</Button>
       </ButtonGroup>

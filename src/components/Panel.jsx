@@ -32,7 +32,11 @@ const Panel = ({
         <List>
           {entries.map((entry, index) => (
             <ListItem key={index}>
-              <ListItemText primary={entry.message} secondary={entry.time} />
+              <ListItemText
+                primary={entry.message}
+                secondary={entry.time}
+                secondaryTypographyProps={{ sx: { color: "red" } }}
+              />
             </ListItem>
           ))}
         </List>
